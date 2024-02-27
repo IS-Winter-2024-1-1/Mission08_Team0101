@@ -34,7 +34,7 @@ namespace Mission08_Team0101.Controllers
             _context.Tasks.Add(entry);
             _context.SaveChanges();
 
-            // Load the GetToKnow page.
+            // Redirect to the Quadrants view so the user can see what they just submitted.
             return View("Index");
         }
 
@@ -60,7 +60,7 @@ namespace Mission08_Team0101.Controllers
         }
 
         [HttpPost]
-        public IActionResult Quadrants(int id)
+        public IActionResult Quadrants(int id) // This is functionally the Delete endpoint. 
         {
             // Grab the record we want to delete using the TaskId.
             Models.Task toDelete = _context.Tasks.First(x => x.TaskId == id);
@@ -79,6 +79,8 @@ namespace Mission08_Team0101.Controllers
 
         [HttpGet]
         public IActionResult Edit(int id)
+        // This view is essentially a duplicate of the AddToDo view, with the fields pre-loaded with the 
+        // values from the record to be edited.
         {
             // Load the Categories table into the ViewBag (for the dropdown).
             ViewBag.categories = _context.Categories.OrderBy(x => x.CategoryId).ToList();
