@@ -53,7 +53,7 @@ namespace Mission08_Team0101.Controllers
                 ViewBag.categoryMappings[c.CategoryId.ToString()] = c.CategoryName;
             }
 
-            // Grab the Movies table and pass it into the view.
+            // Grab the Tasks table and pass it into the view.
             List<Models.Task> tasks = _context.Tasks.ToList();
 
             return View(tasks);
