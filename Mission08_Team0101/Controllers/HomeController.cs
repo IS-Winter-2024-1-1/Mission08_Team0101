@@ -38,5 +38,69 @@ namespace Mission08_Team0101.Controllers
             return View("Index");
         }
 
+
+
+
+        [HttpGet]
+        public IActionResult Quadrants()
+        {
+            ViewBag.categoryMappings = new Dictionary<string, string>();
+
+            // Load data from the Categories table into the dictionary, such that the categoryIDs are the keys, and the categoryNames are the values.
+            // This will make it easier to display categoryNames in the view, since the Tasks records will only have categoryID.
+            foreach (Category c in _context.Categories.OrderBy(x => x.CategoryId).ToList())
+            {
+                ViewBag.categoryMappings[c.CategoryId.ToString()] = c.CategoryName;
+            }
+
+            // Grab the Movies table and pass it into the view.
+            List<Models.Task> tasks = _context.Tasks.ToList();
+
+            return View(tasks);
+        }
+
+        [HttpPost]
+        public IActionResult Quadrants(int id)
+        {
+            // Grab the record we want to delete using the TaskId.
+            Models.Task toDelete = _context.Tasks.First(x => x.TaskId == id);
+
+            // NUKE IT!
+            _context.Tasks.Remove(toDelete);
+            _context.SaveChanges();
+
+            // Redirect to the data page.
+            return RedirectToAction("Quadrants");
+        }
+
+
+
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            // Load the Categories table into the ViewBag (for the dropdown).
+            ViewBag.categories = _context.Categories.OrderBy(x => x.CategoryId).ToList();
+
+            // Load the Task the user wants to edit into the ViewBag, so the view can have its input fields pre-populated with the existing data.
+            ViewBag.nowEditing = _context.Tasks.Where(x => x.TaskId == id).ToList()[0];
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Models.Task updatedTask)
+        {
+            _context.Update(updatedTask);
+            _context.SaveChanges();
+
+            return RedirectToAction("Quadrants");
+        }   
+
+
+
+
+
     }
 }
