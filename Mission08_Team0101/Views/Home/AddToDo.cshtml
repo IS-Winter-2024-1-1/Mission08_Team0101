@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Add a ToDo";
+    ViewData["Background"] = "bg-masthead.jpg";
+}
+
+<h1 class="mb-1">Add a ToDo Item</h1>
+<h3 class="mb-5"><em>What do you need to do?</em></h3>
+<form asp-action="AddToDo" method="post">
+    <div class="form-group">
+        <div>
+            <label for="task">Task:</label><br>
+            <input type="text" id="task" name="task" required><br>
+        </div>
+        <div>
+            <label for="due-date">Due Date:</label><br>
+            <input type="date" id="due-date" name="due-date"><br>
+        </div>
+        <div>
+            <label for="quadrant">Quadrant:</label><br>
+            <input type="text" id="quadrant" name="quadrant" required><br>
+        </div>
+        <div>
+            <label for="category">Category:</label><br>
+            <select id="category" name="category">
+                <option value="Home">Home</option>
+                <option value="School">School</option>
+                <option value="Work">Work</option>
+                <option value="Church">Church</option>
+            </select><br>
+        </div>
+        <div>
+            <label for="completed">Completed:</label><br>
+            <input type="checkbox" id="completed" name="completed" value="true">
+            <label for="completed">Yes</label><br>
+        </div>
+        <br>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add ToDo" class="btn btn-primary" />
+    </div>
+</form>
