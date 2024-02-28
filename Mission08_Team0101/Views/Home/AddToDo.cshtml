@@ -1,40 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["Title"] = "Add a ToDo";
-    ViewData["Background"] = "bg-masthead.jpg";
+    ViewData["Background"] = "/image/bg-masthead.jpg";
 }
+
+@model Mission08_Team0101.Models.Task
 
 <h1 class="mb-1">Add a ToDo Item</h1>
 <h3 class="mb-5"><em>What do you need to do?</em></h3>
 <form asp-action="AddToDo" method="post">
     <div class="form-group">
+        <input type="hidden" asp-for="TaskId" />
         <div>
-            <label for="task">Task:</label><br>
-            <input type="text" id="task" name="task" required><br>
+            <label asp-for="TaskName">Task:</label><br>
+            <input asp-for="TaskName"type="text" id="TaskName" name="TaskName" required><br>
         </div>
         <div>
-            <label for="due-date">Due Date:</label><br>
-            <input type="date" id="due-date" name="due-date"><br>
+            <label asp-for="Date">Due Date:</label><br>
+            <input asp-for="Date" type="date" id="Date" name="Date"><br>
         </div>
         <div>
-            <label for="quadrant">Quadrant:</label><br>
-            <input type="text" id="quadrant" name="quadrant" required><br>
+            <label asp-for="Quadrant">Quadrant:</label><br>
+            <select asp-for="Quadrant" type="text" id="Quadrant" name="Quadrant" required>
+                <option value="1">Quadrant 1</option>
+                <option value="2">Quadrant 2</option>
+                <option value="3">Quadrant 3</option>
+                <option value="4">Quadrant 4</option>
+            </select>
+            <br>
         </div>
         <div>
-            <label for="category">Category:</label><br>
-            <select id="category" name="category">
-                <option value="Home">Home</option>
-                <option value="School">School</option>
-                <option value="Work">Work</option>
-                <option value="Church">Church</option>
+            
+            <label asp-for="CategoryId">Category:</label><br>
+            <select asp-for="CategoryId" id="CategoryId" name="CategoryId">
+               <option value="">Please Select a Category</option>
+                @foreach (var item in ViewBag.categories)
+                {
+                    <option value="@item.CategoryId">@item.CategoryName</option>
+                })
+                
             </select><br>
         </div>
         <div>
-            <label for="completed">Completed:</label><br>
-            <input type="checkbox" id="completed" name="completed" value="true">
-            <label for="completed">Yes</label><br>
+            <label asp-for="IsCompleted">Completed:</label><br>
+            <input asp-for="IsCompleted" type="checkbox" id="IsCompleted" name="IsCompleted">
+            <label asp-for="IsCompleted">Yes</label><br>
         </div>
         <br>
     </div>
