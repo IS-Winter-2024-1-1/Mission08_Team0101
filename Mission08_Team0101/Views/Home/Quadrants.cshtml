@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Task>
+
+<div class="container">
+    <div class="row">
+        <div class="col">Time Management Matrix</div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">Urgent</div>
+        <div class="col">Not Urgent</div>
+    </div>
+    <div class="row">
+        <div class="col">Important</div>
+        <div class="col">Q1</div>
+        @foreach (var task in Model.Where(t => t.Quadrant == 'Q1'))
+        {
+            <div class="col-8 col-sm-6">@task.TaskName</div>
+            <div class="col-4 col-sm-6">
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Update</button>
+                </div>
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Delete</button>
+                </div>
+            </div>
+        }
+        <div class="col">Q2</div>
+        @foreach (var task in Model.Where(t => t.Quadrant == 'Q2'))
+        {
+            <div class="col-8 col-sm-6">@task.TaskName</div>
+            <div class="col-4 col-sm-6">
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Update</button>
+                </div>
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col">Not Important</div>
+        <div class="col">Q3</div>
+        @foreach (var task in Model.Where(t => t.Quadrant == 'Q3'))
+        {
+            <div class="col-8 col-sm-6">@task.TaskName</div>
+            <div class="col-4 col-sm-6">
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Update</button>
+                </div>
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Delete</button>
+                </div>
+            </div>
+        }
+        <div class="col">Q4</div>
+        @foreach (var task in Model.Where(t => t.Quadrant == 'Q4'))
+        {
+            <div class="col-8 col-sm-6">@task.TaskName</div>
+            <div class="col-4 col-sm-6">
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Update</button>
+                </div>
+                <div>
+                    <button class="btn btn-sm m-1" type="button">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
