@@ -7,73 +7,83 @@
 }
 @model List<Mission08_Team0101.Models.Task>
 
-<div class="container">
-    <div class="row">
-        <div class="col">Time Management Matrix</div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+            <h3>Time Management Matrix</h3>
+        </div>
     </div>
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">Urgent</div>
-        <div class="col">Not Urgent</div>
-    </div>
-    <div class="row">
-        <div class="col">Important</div>
-        <div class="col">Q1</div>
-        @foreach (var task in Model.Where(t => t.Quadrant == "Q1"))
-        {
-            <div class="col-8 col-sm-6">@task.TaskName</div>
-            <div class="col-4 col-sm-6">
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Update</button>
-                </div>
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Delete</button>
-                </div>
-            </div>
-        }
-        <div class="col">Q2</div>
-        @foreach (var task in Model.Where(t => t.Quadrant == "Q2"))
-        {
-            <div class="col-8 col-sm-6">@task.TaskName</div>
-            <div class="col-4 col-sm-6">
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Update</button>
-                </div>
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Delete</button>
-                </div>
-            </div>
-        }
-    </div>
-    <div class="row">
-        <div class="col">Not Important</div>
-        <div class="col">Q3</div>
-        @foreach (var task in Model.Where(t => t.Quadrant == "Q3"))
-        {
-            <div class="col-8 col-sm-6">@task.TaskName</div>
-            <div class="col-4 col-sm-6">
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Update</button>
-                </div>
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Delete</button>
-                </div>
-            </div>
-        }
-        <div class="col">Q4</div>
-        @foreach (var task in Model.Where(t => t.Quadrant == "Q4"))
-        {
-            <div class="col-8 col-sm-6">@task.TaskName</div>
-            <div class="col-4 col-sm-6">
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Update</button>
-                </div>
-                <div>
-                    <button class="btn btn-sm m-1" type="button">Delete</button>
-                </div>
-            </div>
-        }
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Urgent</th>
+                        <th>Not Urgent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Important</th>
+                        <!-- Quadrant 1: Urgent & Important -->
+                        <td>
+                            <table>
+                                @foreach (var task in Model.Where(t => t.Quadrant == "1"))
+                                {
+                                    <tr>
+                                        <td style="padding-right: 20px">@task.TaskName</td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a></td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                        <!-- Quadrant 2: Not Urgent & Important -->
+                        <td>
+                            <table>
+                                @foreach (var task in Model.Where(t => t.Quadrant == "2"))
+                                {
+                                    <tr>
+                                        <td style="padding-right: 20px">@task.TaskName</td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a></td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Not Important</th>
+                        <!-- Quadrant 3: Urgent & Not Important -->
+                        <td>
+                            <table>
+                                @foreach (var task in Model.Where(t => t.Quadrant == "3"))
+                                {
+                                    <tr>
+                                        <td style ="padding-right: 20px">@task.TaskName</td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a></td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                        <!-- Quadrant 4: Not Urgent & Not Important -->
+                        <td>
+                            <table>
+                                @foreach (var task in Model.Where(t => t.Quadrant == "4"))
+                                {
+                                    <tr>
+                                        <td style="padding-right: 20px">@task.TaskName</td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a></td>
+                                        <td><a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a></td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
-
