@@ -7,11 +7,11 @@ namespace Mission08_Team0101.Controllers
 {
     public class HomeController : Controller
     {
-        private TaskApplicationContext _context;
+        private ITaskRepository _repo;
 
-        public HomeController(TaskApplicationContext x)
+        public HomeController(ITaskRepository temp)
         {
-            _context = x;
+            _repo = temp;
         }
 
         public IActionResult Index()
@@ -23,7 +23,7 @@ namespace Mission08_Team0101.Controllers
         public IActionResult AddToDo()
         {
             // Load the Categories table into the ViewBag (for the dropdown).
-            ViewBag.categories = _context.Categories.OrderBy(x => x.CategoryName).ToList();
+            ViewBag.categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
 
             return View();
         }
@@ -31,8 +31,7 @@ namespace Mission08_Team0101.Controllers
         [HttpPost]
         public IActionResult AddToDo(Models.Task entry)
         {
-            _context.Tasks.Add(entry);
-            _context.SaveChanges();
+            _repo.AddTask(entry);
 
             // Redirect to the Quadrants view so the user can see what they just submitted.
             return View("Index");
@@ -48,13 +47,13 @@ namespace Mission08_Team0101.Controllers
 
             // Load data from the Categories table into the dictionary, such that the categoryIDs are the keys, and the categoryNames are the values.
             // This will make it easier to display categoryNames in the view, since the Tasks records will only have categoryID.
-            foreach (Category c in _context.Categories.OrderBy(x => x.CategoryId).ToList())
+            foreach (Category c in _repo.Categories.OrderBy(x => x.CategoryId))
             {
                 ViewBag.categoryMappings[c.CategoryId.ToString()] = c.CategoryName;
             }
 
             // Grab the Tasks table and pass it into the view.
-            List<Models.Task> tasks = _context.Tasks.ToList();
+            List<Models.Task> tasks = _repo.Tasks;
 
             return View(tasks);
         }
@@ -63,11 +62,10 @@ namespace Mission08_Team0101.Controllers
         public IActionResult Quadrants(int id) // This is functionally the Delete endpoint. 
         {
             // Grab the record we want to delete using the TaskId.
-            Models.Task toDelete = _context.Tasks.First(x => x.TaskId == id);
+            Models.Task toDelete = _repo.Tasks.First(x => x.TaskId == id);
 
             // NUKE IT!
-            _context.Tasks.Remove(toDelete);
-            _context.SaveChanges();
+            _repo.RemoveTask(toDelete);
 
             // Redirect to the data page.
             return RedirectToAction("Quadrants");
@@ -83,19 +81,17 @@ namespace Mission08_Team0101.Controllers
         // values from the record to be edited.
         {
             // Load the Categories table into the ViewBag (for the dropdown).
-            ViewBag.categories = _context.Categories.OrderBy(x => x.CategoryId).ToList();
+            ViewBag.categories = _repo.Categories.OrderBy(x => x.CategoryId).ToList();
 
-            // Load the Task the user wants to edit into the ViewBag, so the view can have its input fields pre-populated with the existing data.
-            ViewBag.nowEditing = _context.Tasks.Where(x => x.TaskId == id).ToList()[0];
+            Models.Task task = _repo.Tasks.Single(x => x.TaskId == id);
 
-            return View();
+            return View("AddToDo", task);
         }
 
         [HttpPost]
         public IActionResult Edit(Models.Task updatedTask)
         {
-            _context.Update(updatedTask);
-            _context.SaveChanges();
+            _repo.UpdateTask(updatedTask);
 
             return RedirectToAction("Quadrants");
         }   
