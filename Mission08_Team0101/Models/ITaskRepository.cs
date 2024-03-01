@@ -3,7 +3,7 @@
     public interface ITaskRepository
     {
         List<Task> Tasks { get; }
-        List<Task> Categories { get; }
+        List<Category> Categories { get; }
 
         public void AddTask(Task task);
         public void RemoveTask(Task task);
