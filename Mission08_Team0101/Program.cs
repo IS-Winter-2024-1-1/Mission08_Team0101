@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using Mission08_Team0101.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<TaskApplicationContext>(options =>
+{
+    options.UseSqlite(builder.Configuration["ConnectionStrings:TaskConnection"]);
+});
+
+builder.Services.AddScoped<ITaskRepository, EFTaskRepository>();
 
 var app = builder.Build();
 
