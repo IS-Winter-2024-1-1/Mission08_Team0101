@@ -53,7 +53,7 @@ namespace Mission08_Team0101.Controllers
             }
 
             // Grab the Tasks table and pass it into the view.
-            List<Models.Task> tasks = _repo.Tasks;
+            List<Models.Task> tasks = _repo.Tasks.Where(x => x.IsCompleted == false).ToList();
 
             return View(tasks);
         }
