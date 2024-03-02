@@ -59,10 +59,10 @@ namespace Mission08_Team0101.Controllers
         }
 
         [HttpPost]
-        public IActionResult Quadrants(int id) // This is functionally the Delete endpoint. 
+        public IActionResult Quadrants(int TaskId) // This is functionally the Delete endpoint. 
         {
             // Grab the record we want to delete using the TaskId.
-            Models.Task toDelete = _repo.Tasks.First(x => x.TaskId == id);
+            Models.Task toDelete = _repo.Tasks.First(x => x.TaskId == TaskId);
 
             // NUKE IT!
             _repo.RemoveTask(toDelete);
